@@ -57,6 +57,19 @@ module Numbers
     origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS'].split(',')
     origins.map! { |url| /#{url}/ }
     config.action_cable.allowed_request_origins = origins
+
+    config.generators do |g|
+      g.fixture_replacement :fabrication
+      g.template_engine     :slim
+      g.test_framework      :rspec,
+        views: false,
+        fixtures: true,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false,
+        controller_specs: true,
+        request_specs: false
+    end
   end
 end
 
