@@ -3,6 +3,10 @@ source 'https://rubygems.org'
 # Looking to use the Edge version? gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 
+gem 'slim-rails'
+gem 'slim'
+gem 'httparty'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 
