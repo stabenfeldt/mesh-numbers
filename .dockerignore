@@ -3,3 +3,5 @@
 .byebug_history
 /log/*
 /tmp/*
+*.swp
+*.swo
