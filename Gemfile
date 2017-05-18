@@ -5,7 +5,7 @@ gem 'rails', '~> 5.0.1'
 
 gem 'slim-rails'
 gem 'slim'
-gem 'httparty'
+gem 'httparty', '~> 0.15.4'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

@@ -57,7 +57,7 @@ GEM
       railties (>= 3.2, < 5.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    httparty (0.15.2)
+    httparty (0.15.4)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.6.1)
@@ -214,7 +214,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3)
   byebug
   font-awesome-rails (~> 4.7)
-  httparty
+  httparty (~> 0.15.4)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
