@@ -1,27 +1,19 @@
 class MembersController < ApplicationController
+  require 'OfficeRnDQuery'
 
   def total
-    url = 'https://app.officernd.com/api/v1/organizations/mesh-oslo/members/'
 
     # 1. check if we have data for today
     member_count =  MemberCount.where("created_at >= ?", Time.zone.now.beginning_of_day).first
-    member_count =  MemberCount.where("created_at >= ?", Time.zone.now.beginning_of_day).first
-    result = OfficeRndQuery.total
-    #unless member_count
-    #  data         = HTTParty.get(url, :headers => { "Authorization" => @auth})
-    #  json         = data.to_json
-    #  members      = JSON.parse(json, object_class: OpenStruct)
-    #  total        = members.select{ |m| m.status == 'active' }.size rescue 0
 
-    #  MemberCount.create!(kind: 'total', count: total)
-    #end
-    #member_count = MemberCount.last.count           rescue 0
-    #time         = MemberCount.last.created_at      rescue 0
-    #last_count   = MemberCount.second_latest.count  rescue 0
+    MemberCount.create!(kind: 'total', count: OfficeRnDQuery.total)
+    member_count    = MemberCount.last.count           rescue 0
+    time            = MemberCount.last.created_at      rescue 0
+    previous_count  = MemberCount.second_latest.count  rescue 0
 
-    #result  = { time: time,
-    #            count: member_count,
-    #            last_count: last_count}
+    result  = { time: time,
+                count: member_count,
+                previous_count: previous_count}
     render json: result
   end
 
