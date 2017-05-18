@@ -8,6 +8,12 @@ Bundler.require(*Rails.groups)
 
 module Numbers
   class Application < Rails::Application
+
+		# Load core extensions
+		config.autoload_paths += Dir[File.join(Rails.root, 'lib',
+																					 'extensions',
+																					 '*.rb')].each {|l| require l }
+
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
