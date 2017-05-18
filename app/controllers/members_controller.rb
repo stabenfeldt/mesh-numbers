@@ -3,10 +3,9 @@ class MembersController < ApplicationController
 
   def total
 
-    # 1. check if we have data for today
     member_count =  MemberCount.where("created_at >= ?", Time.zone.now.beginning_of_day).first
+    MemberCount.create!(kind: 'total', count: OfficeRnDQuery.total) unless member_count
 
-    MemberCount.create!(kind: 'total', count: OfficeRnDQuery.total)
     member_count    = MemberCount.last.count           rescue 0
     time            = MemberCount.last.created_at      rescue 0
     previous_count  = MemberCount.second_latest.count  rescue 0
