@@ -1,10 +1,16 @@
 class OfficeRndQuery
+
+  def initialize
+    require 'json'
+    require 'ostruct'
+    @auth = ENV['OFFICE_RND_TOKEN']
+  end
+
   def self.total
     url = 'https://app.officernd.com/api/v1/organizations/mesh-oslo/members/'
 
-    member_count =  MemberCount.where("created_at >= ?", Time.zone.now.beginning_of_day).first
     unless member_count
-      data         = HTTParty.get(url, :headers => { "Authorization" => @auth})
+      data         = HTTParty.get(url, :headers => { "Authorization" => @auth}) rescue 'failed'
       render text: data
       json         = data.to_json
       members      = JSON.parse(json, object_class: OpenStruct)
