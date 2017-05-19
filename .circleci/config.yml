@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /numbers
     docker:
-      - image: ruby:2.3-slim
+      - image: registry:2.6.1
     steps:
       - checkout
       - setup_remote_docker
