@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  postgres:
+    image: 'postgres:9.5'
+    environment:
+      POSTGRES_USER: 'numbers'
+      POSTGRES_PASSWORD: 'plussminus'
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  website:
+    depends_on:
+      - 'postgres'
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/numbers'
+    env_file:
+      - .env
+    command: bash -c "echo 'hei' &&  bundle exec rspec && exit"
+
+
+volumes:
+  postgres:

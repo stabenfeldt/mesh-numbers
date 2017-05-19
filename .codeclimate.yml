@@ -1,0 +1,29 @@
+---
+engines:
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    exclude_fingerprints:
+    - 159043c8f67d27b885d24f89c00b49f4
+    - 0b793b880747ad1b3327fc76dd28e95b
+    - 4c7871ee41db1587f03d8f3a20fb2f3c
+    config:
+      languages:
+      - ruby
+      - javascript
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  radon:
+    enabled: true
+ratings:
+  paths:
+  - "**.css"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.rb"
+exclude_paths: []
