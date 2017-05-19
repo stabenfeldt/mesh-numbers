@@ -5,9 +5,9 @@ jobs:
     docker:
       - image: ruby:2.3-slim
     steps:
+      - run: gem install bundler
       - checkout
       - run:
           command: |
             echo Running test
-            gem install bundler
             rspec
