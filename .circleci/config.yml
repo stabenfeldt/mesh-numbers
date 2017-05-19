@@ -7,7 +7,5 @@ jobs:
     steps:
       - run: gem install bundler
       - checkout
-      - run:
-          command: |
-            echo Running test
-            rspec
+      - run: pwd
+      - run: rspec
