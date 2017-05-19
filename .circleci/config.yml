@@ -7,10 +7,10 @@ jobs:
     steps:
       - checkout
       - run: docker-compose -f docker-compose-test.yml up --build
-      - deploy:
-        command: |
-          docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-          docker tag $DOCKER_HUB_USER_ID/$PROJECT_NAME $DOCKER_HUB_USER_ID/mesh-node-backend:$CIRCLE_SHA1
-          docker tag -f $DOCKER_HUB_USER_ID/$PROJECT_NAME $DOCKER_HUB_USER_ID/mesh-node-backend:latest
-          docker push $DOCKER_HUB_USER_ID/$PROJECT_NAME:$CIRCLE_SHA1
-          docker push $DOCKER_HUB_USER_ID/$PROJECT_NAME:latest
+    - deploy:
+      command: |
+        docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+        docker tag $DOCKER_HUB_USER_ID/$PROJECT_NAME $DOCKER_HUB_USER_ID/mesh-node-backend:$CIRCLE_SHA1
+        docker tag -f $DOCKER_HUB_USER_ID/$PROJECT_NAME $DOCKER_HUB_USER_ID/mesh-node-backend:latest
+        docker push $DOCKER_HUB_USER_ID/$PROJECT_NAME:$CIRCLE_SHA1
+        docker push $DOCKER_HUB_USER_ID/$PROJECT_NAME:latest
