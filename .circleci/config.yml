@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /numbers
     docker:
-      - image: ubuntu
+      - image: stabenfeldt/ubuntu-w-docker-compose:1
     steps:
       - checkout
       - setup_remote_docker
