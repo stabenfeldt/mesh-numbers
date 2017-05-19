@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    working_directory: /numbers
+    docker:
+      - image: ruby:2.3-slim
+    steps:
+      - checkout
+      - run:
+          command: |
+            echo Running test
+            gem install bundler
+            rspec
