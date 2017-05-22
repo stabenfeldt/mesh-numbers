@@ -4,8 +4,8 @@ services:
   postgres:
     image: 'postgres:9.5'
     environment:
-      POSTGRES_USER: 'numbers'
-      POSTGRES_PASSWORD: 'plussminus'
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
     ports:
       - '5432:5432'
     volumes:
@@ -21,7 +21,8 @@ services:
       - '.:/numbers'
     env_file:
       - .env
-    command: bash -c "echo 'running tests'; pwd;  && bundle exec rspec"
+    environment:
+      - OFFICE_RND_TOKEN
 
 
 volumes:

@@ -4,8 +4,8 @@ services:
   postgres:
     image: 'postgres:9.5'
     environment:
-      POSTGRES_USER: 'numbers'
-      POSTGRES_PASSWORD: 'plussminus'
+      POSTGRES_USER
+      POSTGRES_PASSWORD
     ports:
       - '5432:5432'
     volumes:
@@ -20,6 +20,8 @@ services:
       - 'redis:/var/lib/redis/data'
 
   website:
+    environment:
+      - OFFICE_RND_TOKEN
     depends_on:
       - 'postgres'
       - 'redis'
@@ -30,6 +32,8 @@ services:
       - '.:/numbers'
     env_file:
       - '.env'
+    stdin_open: true
+    tty: true
 
   sidekiq:
     depends_on:
