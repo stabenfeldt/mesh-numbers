@@ -21,7 +21,7 @@ services:
       - '.:/numbers'
     env_file:
       - .env
-    command: bash -c "echo 'running tests'
+    command: bash -c "echo 'running tests'"
     command: bash -c "bundle exec rspec"
 
 
