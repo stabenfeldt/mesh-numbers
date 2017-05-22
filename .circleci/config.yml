@@ -12,7 +12,7 @@ jobs:
       - deploy:
           command: |
             docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-            docker tag $DOCKER_HUB_USER_ID/$PROJECT_NAME $DOCKER_HUB_USER_ID/mesh-numbers:$CIRCLE_SHA1
-            docker tag -f $DOCKER_HUB_USER_ID/$PROJECT_NAME $DOCKER_HUB_USER_ID/mesh-numbers:latest
+            docker tag $DOCKER_HUB_USER_ID/$PROJECT_NAME $DOCKER_HUB_USER_ID/$ROJECT_NAME:$CIRCLE_SHA1
+            docker tag -f $DOCKER_HUB_USER_ID/$PROJECT_NAME $DOCKER_HUB_USER_ID/$ROJECT_NAME:latest
             docker push $DOCKER_HUB_USER_ID/$PROJECT_NAME:$CIRCLE_SHA1
             docker push $DOCKER_HUB_USER_ID/$PROJECT_NAME:latest
