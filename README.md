@@ -1,24 +1,10 @@
-# README
+# MESH Numbers
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Get rolling with Docker Swarm
 
-Things you may want to cover:
+docker network create --driver overlay proxy
+docker stack deploy -c docker-compose-swarm.yml mesh
 
-* Ruby version
+docker stack ps mesh
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+curl -i "http://$(docker-machine ip swarm-1)/demo/hello"
