@@ -4,28 +4,20 @@ services:
   postgres:
     image: 'postgres:9.5'
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - POSTGRES_USER=numbers
+      - POSTGRES_PASSWORD=plusminus
+      - POSTGRES_DB=numbers
     ports:
       - '5432:5432'
     volumes:
       - 'postgres:/var/lib/postgresql/data'
 
-  redis:
-    image: 'redis:3.2-alpine'
-    command: redis-server --requirepass plussminus
-    ports:
-      - '6379:6379'
-    volumes:
-      - 'redis:/var/lib/redis/data'
-
   website:
+    build: .
     environment:
       - OFFICE_RND_TOKEN
     depends_on:
       - 'postgres'
-      - 'redis'
-    build: .
     ports:
       - '3000:3000'
     volumes:
@@ -35,29 +27,7 @@ services:
     stdin_open: true
     tty: true
 
-  sidekiq:
-    depends_on:
-      - 'postgres'
-      - 'redis'
-    build: .
-    command: sidekiq -C config/sidekiq.yml.erb
-    volumes:
-      - '.:/numbers'
-    env_file:
-      - '.env'
 
-  cable:
-    depends_on:
-      - 'redis'
-    build: .
-    command: puma -p 28080 cable/config.ru
-    ports:
-      - '28080:28080'
-    volumes:
-      - '.:/numbers'
-    env_file:
-      - '.env'
 
 volumes:
-  redis:
   postgres:
