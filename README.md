@@ -11,4 +11,6 @@ docker stack deploy -c docker-compose-swarm.yml mesh
 
 docker stack ps mesh
 
-curl -i "http://$(docker-machine ip swarm-1)/demo/hello"
+curl -i "http://$(docker-machine ip swarm-1):3000"
+
+### Rebuild images
