@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: 'postgres:9.5'
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    deploy:
+      replicas: 1
+    networks:
+      - default
+    restart: always
+
+  website:
+    image: 'stabenfeldt/mesh-numbers:latest'
+    environment:
+      - OFFICE_RND_TOKEN
+    depends_on:
+      - 'postgres'
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/numbers'
+    env_file:
+      - '.env'
+    stdin_open: true
+    tty: true
+    networks:
+      - default
+      - proxy
+    deploy:
+      replicas: 1
+    restart: always
+
+
+
+volumes:
+  postgres:
+
+networks:
+  default:
+    external: false
+  proxy:
+    external: true
