@@ -20,7 +20,7 @@ services:
   website:
     image: 'stabenfeldt/mesh-numbers:latest'
     environment:
-      - OFFICE_RND_TOKEN
+      - OFFICE_RND_TOKEN=${OFFICE_RND_TOKEN}
     depends_on:
       - 'postgres'
     ports:
