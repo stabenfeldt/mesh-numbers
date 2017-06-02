@@ -1,12 +1,22 @@
 # MESH Numbers
 
-## Get rolling with Docker Swarm
+## Run a swarm locally
 
 Run `setup-swarm.sh` to setup a swarm running locally.
 
+## Run a swarm at Digital Ocean
+
+
+Run `setup-digital-ocean-droplets.sh` to start enough machines to host our swarm.
+When that is done you can deploy our swarm to those machines.
+
+
 ### Deploy the services
 
+# If running locally
 eval $(docker-machine env swarm-1)
+# If running on digital ocean
+eval $(docker-machine env do-swarm-1)
 
 docker network create --driver overlay proxy
 docker stack deploy -c docker-compose-swarm.yml mesh
@@ -14,6 +24,7 @@ docker stack deploy -c docker-compose-swarm.yml mesh
 docker stack ps mesh
 
 curl -i "http://$(docker-machine ip swarm-1):3000"
+```
 
 ### Rebuild images
 
@@ -32,14 +43,18 @@ And then `open http://$(docker-machine ip swarm-1)`
 
 When you know the images are beeing properly buildt here, it'd time to test with _docker stack_.
 
-### Docker Stack
-If you need to change settings for the postgres container, remember to vipe it's volumne, otherwize the info set in
+### Nice to know
+If you need to change settings for the postgres container, remember to vipe it's volumne, otherwise the info set in
 ENV vars is ignored.
+```bash
 docker volume ls
 docker volume rm $ID
+```
 
+
+## Running commands in a container
 E.g running rake db:migrate
-First, check which server that is running rails:
+First, figure out which server the container is running on. Here we're looking for the one hosting the website.
 
 ```bash
 $ docker stack ps mesh
@@ -55,55 +70,4 @@ Set swarm-2 as the target for our docker commands:
 Run the rake command on the docker image running at the machine swarm-2:
 ```bash
 docker exec -it $(docker ps | tail -1 | cut -f1 -d" ") rake db:migrate
-```
-
-
-# Running at Digital Ocean
-
-```bash
-
-docker-machine create --driver digitalocean  --digitalocean-size 1gb  --digitalocean-private-networking  do-swarm-1
-
-
-# Remember to change 'do-swarm' here if if you have changed it in $SWARM above.
-
-MANAGER_IP=$(curl -X GET \
-	-H "Authorization: Bearer $DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
-	| jq -r '.droplets[]
-	| select(.name=="do-swarm-1").networks.v4[]
-	| select(.type=="private").ip_address')
-
-echo "Manager IP is ${MANAGER_IP}"
-
-eval $(docker-machine env do-swarm-1)
-docker swarm init --advertise-addr $MANAGER_IP
-
-# Confirm that the cluster is running
-docker node ls
-
-# Now that we initialized the cluster, we can add more nodes. We’ll start by creating two new instances and joining them as managers.
-
-MANAGER_TOKEN=$(docker swarm join-token -q manager)
-echo "MANAGER_TOKEN is ${MANAGER_TOKEN}"
-
-for i in 2 3; do docker-machine create \
-	--driver digitalocean \
-	--digitalocean-size 1gb \
-  --digitalocean-private-networking \
-  do-swarm-$i
-
-	IP=$(curl -X GET \
-		-H "Authorization: Bearer $DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
-		| jq -r ".droplets[]
-		| select(.name==\"do-swarm-$i\").networks.v4[]
-		| select(.type==\"private\").ip_address")
-
-	eval $(docker-machine env do-swarm-$i)
-
-	docker swarm join  --token $MANAGER_TOKEN  --advertise-addr $IP  $MANAGER_IP:2377
-
-done
-
-
-
 ```
