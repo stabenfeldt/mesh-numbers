@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -e
+
+export DIGITALOCEAN_REGION="ams3"
 
 if ! [ $MESH_DIGITALOCEAN_ACCESS_TOKEN ]
 then
@@ -15,10 +17,14 @@ fi
 
 printf "Starting a swarm on Digital Ocean. Hold thight \n"
 
-export DIGITALOCEAN_REGION="ams3"
 
-printf "Creating do-swarm-1, our manager node"
-docker-machine create --driver digitalocean  --digitalocean-size 1gb  --digitalocean-private-networking  do-swarm-1
+printf "Creating do-swarm-1, our manager node \n \n"
+docker-machine create \
+  --driver digitalocean  \
+  --digitalocean-size 1gb  \
+  --digitalocean-private-networking \
+  --digitalocean-access-token=$MESH_DIGITALOCEAN_ACCESS_TOKEN \
+  do-swarm-1
 
 MANAGER_IP=$(curl -X GET \
 	-H "Authorization: Bearer $MESH_DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
