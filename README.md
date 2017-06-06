@@ -52,7 +52,7 @@ docker volume rm $ID
 ```
 
 
-## Running commands in a container
+## Running commands in a Swarm cluster on DigitalOcean
 E.g running rake db:migrate
 First, figure out which server the container is running on. Here we're looking for the one hosting the website.
 
@@ -71,3 +71,8 @@ Run the rake command on the docker image running at the machine swarm-2:
 ```bash
 docker exec -it $(docker ps | tail -1 | cut -f1 -d" ") rake db:migrate
 ```
+
+## Running commands in a cluster started with docker-compose locally
+E.g running rake db:migrate or rspec
+docker-compose run website rspec
+
