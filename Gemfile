@@ -49,7 +49,13 @@ gem 'bootstrap-sass', '~> 3.3'
 # Use Font Awesome Rails for Font Awesome icons
 gem 'font-awesome-rails', '~> 4.7'
 
+group :test do
+end
+
+
+
 group :development, :test do
+  gem 'timecop'
   gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
   # Call 'byebug' anywhere in your code to drop into a debugger console
   gem 'byebug', platform: :mri
@@ -57,6 +63,9 @@ group :development, :test do
 end
 
 group :development do
+  gem 'guard'
+  gem 'guard-rspec', require: false
+
   # Enable a debug toolbar to help profile your application
   gem 'rack-mini-profiler', '~> 0.10'
 
