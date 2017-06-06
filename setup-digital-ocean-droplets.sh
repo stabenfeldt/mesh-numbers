@@ -1,28 +1,27 @@
 #!/bin/bash
 
-# This script starts
-# - 2 manager nodes
-
-
-if [ `which jq` ]
+if ! [ $MESH_DIGITALOCEAN_ACCESS_TOKEN ]
 then
-  echo "jq OK"
-else
-  echo "Run brew install jq or similar" >&2
+  echo "You must export MESH_DIGITALOCEAN_ACCESS_TOKEN"
+  exit 1
+fi
+
+if ! [ `which jq` ]
+then
+  echo "Run brew install jq"
 	exit 1
 fi
 
 
 printf "Starting a swarm on Digital Ocean. Hold thight \n"
 
-# export DIGITALOCEAN_ACCESS_TOKEN
 export DIGITALOCEAN_REGION="ams3"
 
 printf "Creating do-swarm-1, our manager node"
 docker-machine create --driver digitalocean  --digitalocean-size 1gb  --digitalocean-private-networking  do-swarm-1
 
 MANAGER_IP=$(curl -X GET \
-	-H "Authorization: Bearer $DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
+	-H "Authorization: Bearer $MESH_DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
 	| jq -r '.droplets[]
 	| select(.name=="do-swarm-1").networks.v4[]
 	| select(.type=="private").ip_address')
@@ -53,7 +52,7 @@ for i in 2 3; do docker-machine create \
   do-swarm-$i
 
 	IP=$(curl -X GET \
-		-H "Authorization: Bearer $DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
+		-H "Authorization: Bearer $MESH_DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
 		| jq -r ".droplets[]
 		| select(.name==\"do-swarm-$i\").networks.v4[]
 		| select(.type==\"private\").ip_address")
@@ -82,7 +81,7 @@ for i in 4 5; do docker-machine create \
   do-swarm-$i
 
 	IP=$(curl -X GET \
-	-H "Authorization: Bearer $DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
+	-H "Authorization: Bearer $MESH_DIGITALOCEAN_ACCESS_TOKEN"  "https://api.digitalocean.com/v2/droplets" \
 	| jq -r ".droplets[]
 	| select(.name==\"do-swarm-$i\").networks.v4[]
 	| select(.type==\"private\").ip_address")
