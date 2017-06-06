@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/stabenfeldt/mesh-numbers.svg?style=svg)](https://circleci.com/gh/stabenfeldt/mesh-numbers)
+
 # MESH Numbers
 
 ## Run a swarm locally
