@@ -2,22 +2,30 @@
 
 # MESH Numbers
 
-## Run a swarm locally
+## Howto get started
+
+### Locally
 
 Run `setup-swarm.sh` to setup a swarm running locally.
 
-## Run a swarm at Digital Ocean
+### On Digital Ocean
 
 
 Run `setup-digital-ocean-droplets.sh` to start enough machines to host our swarm.
 When that is done you can deploy our swarm to those machines.
 
 
-### Deploy the services
+## Deploy
 
-# If running locally
+### Locally
+```bash
 eval $(docker-machine env swarm-1)
-# If running on digital ocean
+docker-compose up 
+```
+
+### On Digital Ocean
+
+```bash
 eval $(docker-machine env do-swarm-1)
 
 docker network create --driver overlay proxy
@@ -25,28 +33,36 @@ docker stack deploy -c docker-compose-swarm.yml mesh
 
 docker stack ps mesh
 
-curl -i "http://$(docker-machine ip swarm-1):3000"
+curl -i "http://$(docker-machine ip do-swarm-1):3000"
 ```
 
-### Rebuild images
+## Rebuild images
 
-## The workflow
-It's faster to make changes to images when using docker-compose, than when using Docker flow.
+### The workflow
+Use docker-compose when you're doing the testing and building cycles of the images.
 When using docker stack you should have verified that the images are working already.
-I find the easiest way to do that is using docker-flow.
+
 
 ```bash
+
 eval $(docker-machine env swarm-1)
 docker-compose up --build
+
 ```
 
 Use `docker-compose ps` to check when the service is ready.
 And then `open http://$(docker-machine ip swarm-1)`
 
 When you know the images are beeing properly buildt here, it'd time to test with _docker stack_.
+```bash
+
+# swarm-1 is created by setup-swarm.sh
+eval $(docker-machine env swarm-1) 
+```
+Then run the same steps as described in 'On Digital Ocean'. Just remember to replace do-swarm with swarm.
 
 ### Nice to know
-If you need to change settings for the postgres container, remember to vipe it's volumne, otherwise the info set in
+If you need to change settings for the postgres container, remember to vipe it's volumne, otherwise changes made to
 ENV vars is ignored.
 ```bash
 docker volume ls
@@ -54,7 +70,7 @@ docker volume rm $ID
 ```
 
 
-## Running commands in a Swarm cluster on DigitalOcean
+### Running commands in a Swarm cluster on DigitalOcean
 E.g running rake db:migrate
 First, figure out which server the container is running on. Here we're looking for the one hosting the website.
 
