@@ -2,6 +2,9 @@
 
 # MESH Numbers
 
+It's a simple Rails app that feeds json streams that Klipfolio consumes.
+It's set up with CD using Circle.ci. Read the [config here](https://github.com/stabenfeldt/mesh-numbers/blob/master/.circleci/config.yml).
+
 ## Howto get started
 
 ### Locally
