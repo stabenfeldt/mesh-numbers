@@ -59,7 +59,7 @@ When you know the images are beeing properly buildt here, it'd time to test with
 # swarm-1 is created by setup-swarm.sh
 eval $(docker-machine env swarm-1) 
 ```
-Then run the same steps as described in 'On Digital Ocean'. Just remember to replace do-swarm with swarm.
+Then run the same steps as described in ['On Digital Ocean'](#on-digital-ocean). Just remember to replace do-swarm with swarm.
 
 ### Nice to know
 If you need to change settings for the postgres container, remember to vipe it's volumne, otherwise changes made to
