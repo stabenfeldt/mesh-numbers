@@ -20,7 +20,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'pg', '~> 0.18'
 
 # Use Redis Rails to set up a Redis backed Cache and / or Session
-gem 'redis-rails', '~> 5.0.0.pre'
+gem 'redis-rails', '~> 5.0.1.0'
 
 # Use Sidekiq as a background job processor through Active Job
 gem 'sidekiq', '~> 4.2'
