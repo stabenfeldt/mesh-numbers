@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Looking to use the Edge version? gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.2.7', '>= 5.2.7.1'
 
 gem 'slim-rails'
 gem 'slim'
@@ -20,7 +20,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'pg', '~> 0.18'
 
 # Use Redis Rails to set up a Redis backed Cache and / or Session
-gem 'redis-rails', '~> 5.0.0.pre'
+gem 'redis-rails', '~> 5.0.1.0'
 
 # Use Sidekiq as a background job processor through Active Job
 gem 'sidekiq', '~> 4.2'
@@ -32,7 +32,7 @@ gem 'sidekiq', '~> 4.2'
 # gem 'kaminari', '~> 0.16'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.0', '>= 5.0.6'
 
 # Use Uglifier as the compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -47,7 +47,7 @@ gem 'turbolinks', '~> 5'
 gem 'bootstrap-sass', '~> 3.3'
 
 # Use Font Awesome Rails for Font Awesome icons
-gem 'font-awesome-rails', '~> 4.7'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
 
 group :test do
 end
@@ -56,7 +56,7 @@ end
 
 group :development, :test do
   gem 'timecop'
-  gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
+  gem 'rspec-rails', '~> 3.6', '>= 3.6.0'
   # Call 'byebug' anywhere in your code to drop into a debugger console
   gem 'byebug', platform: :mri
   gem 'rails-controller-testing'
@@ -70,7 +70,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 0.10'
 
   # Access an IRB console on exception pages or by using <%= console %>
-  gem 'web-console', '~> 3.3.0'
+  gem 'web-console', '~> 3.3.1'
 
   # Get notified of file changes. Read more: https://github.com/guard/listen
   gem 'listen', '~> 3.0.5'
