@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Looking to use the Edge version? gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 7.1.0'
 
 gem 'slim-rails'
 gem 'slim'
