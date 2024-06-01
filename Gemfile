@@ -38,7 +38,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 # Use jQuery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '>= 4.2.2'
 
 # Use Turbolinks. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
