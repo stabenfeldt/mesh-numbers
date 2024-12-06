@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Looking to use the Edge version? gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 7.0.0'
 
 gem 'slim-rails'
 gem 'slim'
@@ -32,7 +32,7 @@ gem 'sidekiq', '~> 4.2'
 # gem 'kaminari', '~> 0.16'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 
 # Use Uglifier as the compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
