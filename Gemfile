@@ -56,7 +56,7 @@ end
 
 group :development, :test do
   gem 'timecop'
-  gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
+  gem 'rspec-rails', '~> 8.0', '>= 8.0.0'
   # Call 'byebug' anywhere in your code to drop into a debugger console
   gem 'byebug', platform: :mri
   gem 'rails-controller-testing'
